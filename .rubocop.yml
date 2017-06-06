@@ -1,0 +1,18 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Metrics/LineLength:
+  Exclude:
+    - 'Rakefile'
+
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Style/ElseAlignment:
+  Enabled: false
+
+Style/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
+
+Style/SingleLineMethods:
+  Enabled: false

@@ -1,0 +1,22 @@
+GIT
+  remote: git://github.com/davejlong/cog-rb.git
+  revision: 65c81415087f29d53acb68f08e4db644c92e1dc1
+  branch: camelize-bundles
+  specs:
+    cog-rb (0.4.4)
+      rake (~> 11.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (11.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler
+  cog-rb!
+
+BUNDLED WITH
+   1.13.7

@@ -1,0 +1,60 @@
+---
+cog_bundle_version: 4
+name: jumpcloud
+description: Commands for interacting with JumpCloud
+version: 0.1.1
+homepage: https://github.com/davejlong/cog-jumpcloud
+author: Dave Long <dlong@cagedata.com>
+docker:
+  image: davejlong/cog-jumpcloud
+  tag: 0.1.1
+config:
+  env:
+    - var: JUMPCLOUD_API_KEY
+      description: API Key for JumpCloud
+commands:
+  users:
+    executable: "/home/bundle/cog-command"
+    description: get a list of users
+    rules:
+      - allow
+    options:
+      account:
+        type: string
+        required: false
+        short_flag: a
+        description: |
+    examples: |
+      jumpcloud:users
+
+      jumpcloud:users --account alt
+  systems:
+    executable: "/home/bundle/cog-command"
+    description: get a list of systems
+    rules:
+      - allow
+    options:
+      account:
+        type: string
+        required: false
+        short_flag: a
+        description: |
+    examples: |
+      jumpcloud:systems
+
+      jumpcloud:systems --account alt
+templates:
+  users:
+    body: |
+      | Username | Email | First Name | Account Locked |
+      | -------- | ----- | ---------- | -------------- |
+      ~each var=$results~
+      | ~$item.username~ | ~$item.email~ | ~$item.lastname~, ~$item.firstname~ | ~$item.account_locked~ |
+      ~end~
+  systems:
+    body: |
+      | Hostname | Display Name | Serial Number | OS  | IP  | Last Contact | Active |
+      | -------- | ------------ | ------------- | --- | --- | ------------ | ------ |
+      ~each var=$results~
+      | ~$item.hostname~ | ~$item.displayName~ | ~$item.serialNumber~ | ~$item.os~ ~$item.version~ | ~$item.ipList~ | ~$item.lastContact~ | ~$item.active~ |
+      ~end~
