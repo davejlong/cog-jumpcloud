@@ -2,17 +2,41 @@
 cog_bundle_version: 4
 name: jumpcloud
 description: Commands for interacting with JumpCloud
-version: 0.1.1
+version: 0.1.3
 homepage: https://github.com/davejlong/cog-jumpcloud
 author: Dave Long <dlong@cagedata.com>
 docker:
   image: davejlong/cog-jumpcloud
-  tag: 0.1.1
+  tag: 0.1.3
 config:
   env:
     - var: JUMPCLOUD_API_KEY
       description: API Key for JumpCloud
+  notes: |
+    Want to manage multiple JumpCloud accounts? Setup multiple API keys by
+    appending an alias after `JUMPCLOUD_API_KEY` like
+    `JUMPCLOUD_API_KEY_EXAMPLE`. All commands support the `account` option to
+    select the account:
+
+      ```
+      jumpcloud:users --account example
+      jumpcloud:systems --account example
+      ```
+
+    Get a list of configured account with:
+
+      ```
+      jumpcloud:accounts
+      ```
+
 commands:
+  accounts:
+    executable: "/home/bundle/cog-command"
+    description: get a list of accounts that can be used for the `--account` option
+    rules:
+      - allow
+    examples: |
+      jumpcloud:accounts
   users:
     executable: "/home/bundle/cog-command"
     description: get a list of users
