@@ -1,4 +1,4 @@
-# jumpcloud - Commands for interacting with JumpCloud (0.1.3)
+# jumpcloud - Commands for interacting with JumpCloud (0.2.3)
 
 
 

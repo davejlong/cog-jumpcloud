@@ -21,13 +21,18 @@ module CogCmd
       def headers
         {
           'x-api-key' => api_key,
-          'accept' => 'application/json'
+          'accept' => 'application/json',
+          'content-type' => 'application/json'
         }
       end
 
       def api_key
         key = ENV.key?('COG_OPT_ACCOUNT') ? "_#{ENV['COG_OPT_ACCOUNT']}" : ''
         ENV["JUMPCLOUD_API_KEY#{key.upcase}"]
+      end
+
+      def subcommand
+        request.args.first
       end
     end
   end
