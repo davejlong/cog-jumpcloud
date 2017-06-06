@@ -1,4 +1,4 @@
-# jumpcloud - Commands for interacting with JumpCloud (0.0.1)
+# jumpcloud - Commands for interacting with JumpCloud (0.1.1)
 
 
 
@@ -27,7 +27,10 @@ The following commands are included with the bundle. For usage info
 about each command see the `help` builtin command: `help jumpcloud:<command_name>`.
 
 * `users`
-  > Get a list of users
+  > get a list of users
+
+* `systems`
+  > get a list of systems
 
 * `JUMPCLOUD_API_KEY`
   > API Key for JumpCloud
