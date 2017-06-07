@@ -2,12 +2,12 @@
 cog_bundle_version: 4
 name: jumpcloud
 description: Commands for interacting with JumpCloud
-version: 0.2.3
+version: 0.3.6
 homepage: https://github.com/davejlong/cog-jumpcloud
 author: Dave Long <dlong@cagedata.com>
 docker:
   image: davejlong/cog-jumpcloud
-  tag: 0.2.3
+  tag: 0.3.6
 permissions:
   - jumpcloud:read
   - jumpcloud:write
@@ -42,10 +42,11 @@ commands:
       jumpcloud:accounts
   users:
     executable: "/home/bundle/cog-command"
-    description: get a list of users
+    description: Commands for working with users
     subcommands:
       list: List all users (default)
       create: Create a new user
+      get: Get a tag
     rules:
       - must have jumpcloud:read
       - with arg[0] == 'create' must have jumpcloud:write
@@ -65,15 +66,23 @@ commands:
         required: false
         short_flag: e
         description: Required for `create`. Username of new user
+      id:
+        type: string
+        required: false
+        short_flag: i
+        description: Required for `get`. ID of user to retrieve
     examples: |
-      jumpcloud:users
+      jumpcloud:users list
 
-      jumpcloud:users list --account alt
+      jumpcloud:users get --id 58ac62df263162b92bfds32bf
 
       jumpcloud:users create --email dlong@cagedata.com --username dlong
   systems:
     executable: "/home/bundle/cog-command"
-    description: get a list of systems
+    description: Commands for working with systems
+    subcommands:
+      list: List all systems (default)
+      get: Get information about a system
     rules:
       - must have jumpcloud:read
     options:
@@ -81,23 +90,58 @@ commands:
         type: string
         required: false
         short_flag: a
-        description: |
+        description: Account to query
+      id:
+        type: string
+        required: false
+        short_flag: i
+        description: Required for `get`. System ID to retrieve
     examples: |
-      jumpcloud:systems
+      jumpcloud:systems list
 
-      jumpcloud:systems --account alt
+      jumpcloud:systems get --id 58ac62df263162b92bfds32bf
+  tags:
+    executable: "/home/bundle/cog-command"
+    description: Commands for working with tags
+    subcommands:
+      list: List all tags (default)
+      get: Get a tag
+    rules:
+      - must have jumpcloud:read
+    options:
+      account:
+        type: string
+        required: false
+        short_flag: a
+        description: Account to query
+      id:
+        type: string
+        required: false
+        short_flag: i
+        description: Required for `get`. Tag ID to retrieve
+    examples: |
+      jumpcloud:tags list
+
+      jumpcloud:tags get --id 58ac62df263162b92bfds32bf
 templates:
   users:
     body: |
-      | Username | Email | Name | Account Locked |
-      | -------- | ----- | ---- | -------------- |
+      | ID  | Username | Email | Name | Account Locked |
+      | --- | -------- | ----- | ---- | -------------- |
       ~each var=$results~
-      | ~$item.username~ | ~$item.email~ | ~$item.lastname~, ~$item.firstname~ | ~$item.account_locked~ |
+      | ~$item.id~ | ~$item.username~ | ~$item.email~ | ~$item.lastname~, ~$item.firstname~ | ~$item.account_locked~ |
       ~end~
   systems:
     body: |
-      | Hostname | Display Name | Serial Number | OS  | IP  | Last Contact | Active |
-      | -------- | ------------ | ------------- | --- | --- | ------------ | ------ |
+      | ID  | Hostname | Serial Number | OS  | Last Contact | Active |
+      | --- | -------- | ------------- | --- | ------------ | ------ |
       ~each var=$results~
-      | ~$item.hostname~ | ~$item.displayName~ | ~$item.serialNumber~ | ~$item.os~ ~$item.version~ | ~$item.ipList~ | ~$item.lastContact~ | ~$item.active~ |
+      | ~$item.id~ | ~$item.hostname~ | ~$item.serialNumber~ | ~$item.os~ ~$item.version~ | ~$item.ipList~ | ~$item.lastContact~ | ~$item.active~ |
+      ~end~
+  tags:
+    body: |
+      | ID  | Name |
+      | --- | ---- |
+      ~each var=$results~
+      | ~$item.id~ | ~$item.name~ |
       ~end~

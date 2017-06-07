@@ -8,13 +8,13 @@ require_relative 'helpers'
 module CogCmd
   module JumpCloud
     ##
-    ## Commands for working with users
+    ## Commands for working with Tags
     ##
-    class Users < Cog::Command
+    class Tags < Cog::Command
       include Helpers
 
-      PATH = "#{BASE_PATH}/systemusers"
-      TEMPLATE = 'users'
+      PATH = "#{BASE_PATH}/tags"
+      TEMPLATE = 'tags'
 
       def run_command
         case subcommand
@@ -22,18 +22,16 @@ module CogCmd
           list
         when 'get'
           get
-        when 'create'
-          create
         end
       end
 
       def list
         resp = http_client.get(PATH, headers)
         if resp.code.to_i == 200
-          response.content = results(resp.body)
           response.template = TEMPLATE
+          response.content = results(resp.body)
         else
-          response.content = "Failed to get users: \`#{resp.body}\`"
+          response.content = "Failed to get tags: \`#{resp.body}\`"
         end
         response
       end
@@ -43,24 +41,8 @@ module CogCmd
         response.content = if resp.code.to_i == 200
           JSON.parse(resp.body)
         else
-          "Failed to get user: \`#{resp.body}\`"
+          "Failed to get tag: \`#{resp.body}\`"
         end
-      end
-
-      def create
-        resp = http_client.post(PATH, body.to_json, headers)
-        response.content = if resp.code.to_i == 200
-          [JSON.parse(resp.body)]
-        else
-          "Failed to create user: \`#{resp.body}\`."
-        end
-      end
-
-      def body
-        {
-          username: ENV['COG_OPT_USERNAME'],
-          email: ENV['COG_OPT_EMAIL']
-        }
       end
 
       def id; ENV['COG_OPT_ID']; end

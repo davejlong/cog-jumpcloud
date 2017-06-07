@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'yaml'
 
 # Make sure we're running from the directory the Rakefile lives in since

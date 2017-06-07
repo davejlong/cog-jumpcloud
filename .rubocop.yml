@@ -8,10 +8,10 @@ Metrics/LineLength:
 Lint/EndAlignment:
   EnforcedStyleAlignWith: variable
 
-Style/ElseAlignment:
+Layout/ElseAlignment:
   Enabled: false
 
-Style/EmptyLineBetweenDefs:
+Layout/EmptyLineBetweenDefs:
   AllowAdjacentOneLineDefs: true
 
 Style/SingleLineMethods:

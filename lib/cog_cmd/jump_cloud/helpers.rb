@@ -34,6 +34,13 @@ module CogCmd
       def subcommand
         request.args.first
       end
+
+      def results(body)
+        JSON.parse(body)['results'].map do |result|
+          result['id'] = result['_id']
+          result
+        end
+      end
     end
   end
 end
