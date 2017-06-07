@@ -1,4 +1,4 @@
-# jumpcloud - Commands for interacting with JumpCloud (0.2.3)
+# jumpcloud - Commands for interacting with JumpCloud (0.3.6)
 
 
 
@@ -30,10 +30,13 @@ about each command see the `help` builtin command: `help jumpcloud:<command_name
   > get a list of accounts that can be used for the `--account` option
 
 * `users`
-  > get a list of users
+  > Commands for working with users
 
 * `systems`
-  > get a list of systems
+  > Commands for working with systems
+
+* `tags`
+  > Commands for working with tags
 
 * `JUMPCLOUD_API_KEY`
   > API Key for JumpCloud
