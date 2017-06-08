@@ -1,4 +1,4 @@
-# jumpcloud - Commands for interacting with JumpCloud (0.3.6)
+# jumpcloud - Commands for interacting with JumpCloud (0.4.2)
 
 
 
@@ -37,6 +37,12 @@ about each command see the `help` builtin command: `help jumpcloud:<command_name
 
 * `tags`
   > Commands for working with tags
+
+* `commands`
+  > Commands for working with JumpCloud Commands
+
+* `results`
+  > Commands for querying command results
 
 * `JUMPCLOUD_API_KEY`
   > API Key for JumpCloud

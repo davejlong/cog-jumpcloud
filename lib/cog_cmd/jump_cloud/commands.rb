@@ -7,12 +7,12 @@ require_relative 'helpers'
 module CogCmd
   module JumpCloud
     ##
-    ## Commands for working with Tags
+    ## Commands for working with Commands
     ##
-    class Tags < Cog::Command
+    class Commands < Cog::Command
       include Helpers
 
-      TEMPLATE = 'tags'
+      TEMPLATE = 'commands'
 
       def run_command
         case subcommand
@@ -24,17 +24,21 @@ module CogCmd
       end
 
       def list
-        response.content = ::JumpCloud::Tags.list(jc_config)['results']
+        response.content = ::JumpCloud::Commands.list(jc_config)['results']
         response.template = TEMPLATE
       rescue ::JumpCloud::NetError => e
         response.content = e.message
       end
 
       def get
-        response.content = ::JumpCloud::Tags.get(jc_config, id)
+        response.content = ::JumpCloud::Commands.get(jc_config, id)
       rescue ::JumpCloud::NetError => e
         response.content = e.message
       end
+
+      private
+
+      def id; ENV['COG_OPT_ID']; end
     end
   end
 end

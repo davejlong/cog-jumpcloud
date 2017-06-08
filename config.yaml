@@ -2,12 +2,12 @@
 cog_bundle_version: 4
 name: jumpcloud
 description: Commands for interacting with JumpCloud
-version: 0.3.6
+version: 0.4.2
 homepage: https://github.com/davejlong/cog-jumpcloud
 author: Dave Long <dlong@cagedata.com>
 docker:
   image: davejlong/cog-jumpcloud
-  tag: 0.3.6
+  tag: 0.4.2
 permissions:
   - jumpcloud:read
   - jumpcloud:write
@@ -123,6 +123,52 @@ commands:
       jumpcloud:tags list
 
       jumpcloud:tags get --id 58ac62df263162b92bfds32bf
+  commands:
+    executable: "/home/bundle/cog-command"
+    description: Commands for working with JumpCloud Commands
+    subcommands:
+      list: List all commands (default)
+      get: Get a commands
+    rules:
+      - must have jumpcloud:read
+    options:
+      account:
+        type: string
+        required: false
+        short_flag: a
+        description: Account to query
+      id:
+        type: string
+        required: false
+        short_flag: i
+        description: Required for `get`. Command ID to retrieve
+    examples: |
+      jumpcloud:commands list
+
+      jumpcloud:commands get --id 58ac62df263162b92bfds32bf
+  results:
+    executable: "/home/bundle/cog-command"
+    description: Commands for querying command results
+    subcommands:
+      list: List all command results (default)
+      get: Get a command result
+    rules:
+      - must have jumpcloud:read
+    options:
+      account:
+        type: string
+        required: false
+        short_flag: a
+        description: Account to query
+      id:
+        type: string
+        required: false
+        short_flag: i
+        description: Required for `get`. Command Result ID to retrieve
+    examples: |
+      jumpcloud:results list
+
+      jumpcloud:results get --id 58ac62df263162b92bfds32bf
 templates:
   users:
     body: |
@@ -144,4 +190,18 @@ templates:
       | --- | ---- |
       ~each var=$results~
       | ~$item.id~ | ~$item.name~ |
+      ~end~
+  commands:
+    body: |
+      | ID  | Name | Schedule | Command |
+      | --- | ---- | -------- | ------- |
+      ~each var=$results~
+      | ~$item.id~ | ~$item.name~ | ~$item.schedule~ | ~$item.command~ |
+      ~end~
+  command_results:
+    body: |
+      | ID  | Command | System | User | Time |
+      | --- | ------- | ------ | ---- | ---- |
+      ~each var=$results~
+      | ~$item.id~ | ~$item.command_id~ | ~$item.system~ | ~$item.user~ | ~$item.responseTime~ |
       ~end~

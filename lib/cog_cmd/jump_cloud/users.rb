@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'cog/command'
-require 'json'
 
 require_relative 'helpers'
 
@@ -13,7 +12,6 @@ module CogCmd
     class Users < Cog::Command
       include Helpers
 
-      PATH = "#{BASE_PATH}/systemusers"
       TEMPLATE = 'users'
 
       def run_command
@@ -28,42 +26,29 @@ module CogCmd
       end
 
       def list
-        resp = http_client.get(PATH, headers)
-        if resp.code.to_i == 200
-          response.content = results(resp.body)
-          response.template = TEMPLATE
-        else
-          response.content = "Failed to get users: \`#{resp.body}\`"
-        end
-        response
+        response.content = ::JumpCloud::Users.list(jc_config)['results']
+        response.template = TEMPLATE
+      rescue ::JumpCloud::NetError => e
+        response.content = e.message
       end
 
       def get
-        resp = http_client.get("#{PATH}/#{id}", headers)
-        response.content = if resp.code.to_i == 200
-          JSON.parse(resp.body)
-        else
-          "Failed to get user: \`#{resp.body}\`"
-        end
+        response.content = ::JumpCloud::Users.get(jc_config, id)
+      rescue ::JumpCloud::NetError => e
+        response.content = e.message
       end
 
       def create
-        resp = http_client.post(PATH, body.to_json, headers)
-        response.content = if resp.code.to_i == 200
-          [JSON.parse(resp.body)]
-        else
-          "Failed to create user: \`#{resp.body}\`."
-        end
+        response.content = ::JumpCloud::Users
+          .create(jc_config, username: username, email: email)
+      rescue ::JumpCloud::NetError => e
+        response.content = e.message
       end
 
-      def body
-        {
-          username: ENV['COG_OPT_USERNAME'],
-          email: ENV['COG_OPT_EMAIL']
-        }
-      end
+      private
 
-      def id; ENV['COG_OPT_ID']; end
+      def username; ENV['COG_OPT_USERNAME']; end
+      def email; ENV['COG_OPT_EMAIL']; end
     end
   end
 end
