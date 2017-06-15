@@ -2,12 +2,12 @@
 cog_bundle_version: 4
 name: jumpcloud
 description: Commands for interacting with JumpCloud
-version: 0.4.2
+version: 0.4.3
 homepage: https://github.com/davejlong/cog-jumpcloud
 author: Dave Long <dlong@cagedata.com>
 docker:
   image: davejlong/cog-jumpcloud
-  tag: 0.4.2
+  tag: 0.4.3
 permissions:
   - jumpcloud:read
   - jumpcloud:write
@@ -71,6 +71,14 @@ commands:
         required: false
         short_flag: i
         description: Required for `get`. ID of user to retrieve
+      limit:
+        type: int
+        required: false
+        description: Used with `list`. Limit number of results returned. Default 10
+      skip:
+        type: int
+        required: false
+        description: Used with `list`. Skip number of results. Default 0
     examples: |
       jumpcloud:users list
 
@@ -96,6 +104,14 @@ commands:
         required: false
         short_flag: i
         description: Required for `get`. System ID to retrieve
+      limit:
+        type: int
+        required: false
+        description: Used with `list`. Limit number of results returned. Default 10
+      skip:
+        type: int
+        required: false
+        description: Used with `list`. Skip number of results. Default 0
     examples: |
       jumpcloud:systems list
 
@@ -119,6 +135,14 @@ commands:
         required: false
         short_flag: i
         description: Required for `get`. Tag ID to retrieve
+      limit:
+        type: int
+        required: false
+        description: Used with `list`. Limit number of results returned. Default 10
+      skip:
+        type: int
+        required: false
+        description: Used with `list`. Skip number of results. Default 0
     examples: |
       jumpcloud:tags list
 
@@ -142,6 +166,14 @@ commands:
         required: false
         short_flag: i
         description: Required for `get`. Command ID to retrieve
+      limit:
+        type: int
+        required: false
+        description: Used with `list`. Limit number of results returned. Default 10
+      skip:
+        type: int
+        required: false
+        description: Used with `list`. Skip number of results. Default 0
     examples: |
       jumpcloud:commands list
 
@@ -165,6 +197,14 @@ commands:
         required: false
         short_flag: i
         description: Required for `get`. Command Result ID to retrieve
+      limit:
+        type: int
+        required: false
+        description: Used with `list`. Limit number of results returned. Default 10
+      skip:
+        type: int
+        required: false
+        description: Used with `list`. Skip number of results. Default 0
     examples: |
       jumpcloud:results list
 

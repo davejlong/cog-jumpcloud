@@ -19,8 +19,9 @@ module JumpCloud
       @config = config
     end
 
-    def list
-      response = handle http_client.get(path, headers)
+    def list(limit: 10, skip: 0)
+      req_path = "#{path}?limit=#{limit}&skip=#{skip}"
+      response = handle http_client.get(req_path, headers)
       response['results'].map! { |item| map_item(item) }
       response
     end
@@ -30,7 +31,7 @@ module JumpCloud
       map_item response
     end
 
-    def self.list(config); new(config).list; end
+    def self.list(config, opts); new(config).list(opts); end
     def self.get(config, id); new(config).get(id); end
 
     private
@@ -50,11 +51,10 @@ module JumpCloud
     end
 
     def handle(response)
-      if response.code.to_i == 200
-        JSON.parse response.body
-      else
+      unless response.code.to_i == 200
         raise NetError, "Received #{response.code} from API"
       end
+      JSON.parse response.body
     end
 
     def map_item(item)

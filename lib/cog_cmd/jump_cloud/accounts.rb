@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'cog/command'
-
 require_relative 'helpers'
 
 module CogCmd

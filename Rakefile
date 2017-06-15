@@ -37,37 +37,37 @@ task :readme do |_t|
   commands         = BUNDLE_CONFIG['commands'].map { |n, c| "* `#{n}`\n  > #{c['description']}" }.join("\n\n")
 
   readme = <<~END
-  # #{name} - #{description} (#{version})
+    # #{name} - #{description} (#{version})
 
-  #{long_description}
+    #{long_description}
 
-  ## Installation
+    ## Installation
 
-  In chat:
+    In chat:
 
-  ```
-  @cog bundle install jumpcloud
-  ```
+    ```
+    @cog bundle install jumpcloud
+    ```
 
-  Via cogctl:
+    Via cogctl:
 
-  ```
-  cogctl bundle install jumpcloud
-  ```
+    ```
+    cogctl bundle install jumpcloud
+    ```
 
-  For more details about how to install and configure bundles see:
+    For more details about how to install and configure bundles see:
 
-  * [Installing Bundles](https://cog-book.operable.io/#_installing_bundles)
-  * [Dynamic Command Configuration](https://cog-book.operable.io/#_dynamic_command_configuration)
+    * [Installing Bundles](https://cog-book.operable.io/#_installing_bundles)
+    * [Dynamic Command Configuration](https://cog-book.operable.io/#_dynamic_command_configuration)
 
-  ## Commands
+    ## Commands
 
-  The following commands are included with the bundle. For usage info
-  about each command see the `help` builtin command: `help #{name}:<command_name>`.
+    The following commands are included with the bundle. For usage info
+    about each command see the `help` builtin command: `help #{name}:<command_name>`.
 
-  #{commands}
+    #{commands}
 
-  #{env}
+    #{env}
   END
 
   File.write('README.md', readme)

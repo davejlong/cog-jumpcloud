@@ -16,3 +16,6 @@ Layout/EmptyLineBetweenDefs:
 
 Style/SingleLineMethods:
   Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented

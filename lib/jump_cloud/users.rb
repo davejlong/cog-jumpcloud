@@ -12,7 +12,7 @@ module JumpCloud
 
     def create(username: nil, email: nil)
       body = { username: username, email: email }
-      response = handle http_client.post("#{PATH}", body.to_json, headers)
+      response = handle http_client.post(PATH, body.to_json, headers)
       map_item response
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add the lib directory to the load path
 libdir = File.join(File.dirname(__FILE__), 'lib')
 $LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)

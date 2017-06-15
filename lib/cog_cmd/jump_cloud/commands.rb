@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'cog/command'
-
 require_relative 'helpers'
 
 module CogCmd
@@ -24,7 +23,8 @@ module CogCmd
       end
 
       def list
-        response.content = ::JumpCloud::Commands.list(jc_config)['results']
+        response.content = ::JumpCloud::Commands
+          .list(jc_config, limit: limit, skip: skip)['results']
         response.template = TEMPLATE
       rescue ::JumpCloud::NetError => e
         response.content = e.message

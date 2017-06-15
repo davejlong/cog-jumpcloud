@@ -22,6 +22,8 @@ module CogCmd
       end
 
       def id; ENV['COG_OPT_ID']; end
+      def limit; ENV['COG_OPT_LIMIT'] || 10; end
+      def skip; ENV['COG_OPT_SKIP'] || 0; end
     end
   end
 end
